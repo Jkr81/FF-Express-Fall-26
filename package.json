@@ -1,0 +1,25 @@
+{
+  "name": "ff-express-fall-26",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1" ,
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jkr81/FF-Express-Fall-26.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Jkr81/FF-Express-Fall-26/issues"
+  },
+  "homepage": "https://github.com/Jkr81/FF-Express-Fall-26#readme",
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}
