@@ -1,3 +1,4 @@
+
 const express = require("express");
 const app = express();
 const port = 3000;
@@ -38,43 +39,47 @@ app.get("/form", (req, res) => {
   res.render("survey", { title: "Survey" });
 });
 
-// app.post("/form", (req, res) => {
-//   res.render("response", {
-//     title: "Thanks!",
-//     name: req.body.name,
-//     animal: req.body.animal
-//   });
-// });
-
 app.post("/form", (req, res) => {
-  const name = req.body.name;
-  const animal = req.body.animal;
+  const platform = req.body.platform;
+  const genre = req.body.genre;
 
-  // 1. Start every animal at 0 votes
+
   let votes = {
-    narwhal: 0,
-    penguin: 0,
-    seal: 0
+    platform: {
+      playstation: 0,
+      xbox: 0,
+      pc: 0,
+      nintendo: 0
+    },
+    genre: {
+      action: 0,
+      horror: 0,
+      adventure: 0,
+      racing: 0
+    }
   };
 
-  // 2. If the browser already has a votes cookie, use those counts instead
   if (req.cookies.votes !== undefined) {
-    votes = req.cookies.votes;
+    if (req.cookies.votes.platform !== undefined &&
+        req.cookies.votes.genre !== undefined) {
+      votes = req.cookies.votes;
+    }
   }
 
-  // 3. If this animal isn't in the list yet, start it at 0
-  if (votes[animal] === undefined) {
-    votes[animal] = 0;
+  if (votes.platform[platform] !== undefined) {
+    votes.platform[platform] = votes.platform[platform] + 1;
   }
 
-  // 4. Add 1 vote to the animal they picked
-  votes[animal] = votes[animal] + 1;
+  if (votes.genre[genre] !== undefined) {
+    votes.genre[genre] = votes.genre[genre] + 1;
+  }
 
-  // 5. Save the updated counts back to the cookie
+
   res.cookie("votes", votes, { maxAge: 7 * 24 * 60 * 60 * 1000 });
 
   res.render("response", {
-      votes: votes
+    platformVotes: votes.platform,
+    genreVotes: votes.genre
   });
 });
 
@@ -83,13 +88,12 @@ app.delete("/clear", (req, res) => {
   res.send("Votes cleared" + "<a href='/form'>Back to form</a>");
 });
 
-app.get("/:name", (req, res)=>{
-    res.send("My name is: " + req.params.name);
-});
-
-// A route that sends JSON
 app.get("/api/animals", (req, res) => {
   res.json(["narwhal", "penguin", "seal"]);
+});
+
+app.get("/:name", (req, res)=>{
+    res.send("My name is: " + req.params.name);
 });
 
 app.listen(port, () => {

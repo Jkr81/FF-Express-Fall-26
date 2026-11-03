@@ -1,0 +1,74 @@
+<h1>{{title}}</h1>
+
+<!-- Chart.js draws the chart inside this canvas -->
+<div style="max-width: 600px;">
+  <canvas id="voteChart"></canvas>
+</div>
+
+<a href="/form">Vote again</a>
+
+<!-- Load Chart.js from a CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+  // Triple braces tell handlebars NOT to escape the JSON,
+  // so it becomes a real JavaScript object here, e.g. { narwhal: 2, penguin: 0, seal: 1 }
+  let votes = {{{votes}}};
+
+  let ctx = document.getElementById("voteChart");
+
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      datasets: [{
+        label: "Votes",
+        // Chart.js can take an object: keys become the bar labels, values the bar heights
+        data: votes,
+        backgroundColor: "#4e79a7"
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { precision: 0 } // whole numbers only
+        }
+      }
+    }
+  });
+</script>
+
+<div id='myContainer1'></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/addons/p5.sound.min.js"></script>
+<script>
+  // pollData is an object like { narwhal: 2, penguin: 0, seal: 1 }
+  var pollData = {{{votes}}};
+  console.log(pollData);
+
+  // The votes cookie has no colors, so pick one for each animal
+  var colors = {
+    narwhal: "#4e79a7",
+    penguin: "#f28e2b",
+    seal: "#59a14f"
+  };
+  function setup() {
+    // Create screen reader accessible description
+    textOutput();
+    let myCanvas1 = createCanvas(600, 400);
+    myCanvas1.parent('myContainer1');
+
+  }
+
+  function draw() {
+
+    // for...in loops over the keys of an object ("narwhal", "penguin", "seal")
+    for (let animal in pollData) {
+      fill(colors[animal]);
+      let circleSize = pollData[animal] * 10;
+      circleX = random(0, width);
+      circleY = random(0, height);
+      circle(circleX, circleY, circleSize);
+    }
+  }
+
+</script>

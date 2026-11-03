@@ -1,11 +1,28 @@
+
+<h1>Gaming Poll</h1>
+
 <form method="POST" action="/form">
-  <label for="name">Your name:</label>
-  <input type="text" name="name" id="name">
-  <label for="animal">Choose an animal:</label>
-  <select name="animal" id="animal">
-    <option value="narwhal">narwhal</option>
-    <option value="penguin">penguin</option>
-    <option value="seal">seal</option>
+
+  <label for="platform">Favorite gaming platform:</label>
+  <select name="platform" id="platform">
+    <option value="playstation">PlayStation</option>
+    <option value="xbox">Xbox</option>
+    <option value="pc">PC</option>
+    <option value="nintendo">Nintendo Switch</option>
   </select>
+
+  <br><br>
+
+  <label for="genre">Favorite game genre:</label>
+  <select name="genre" id="genre">
+    <option value="action">Action</option>
+    <option value="horror">Horror</option>
+    <option value="adventure">Adventure</option>
+    <option value="racing">Racing</option>
+  </select>
+
+  <br><br>
+
   <button type="submit">Submit</button>
+
 </form>
