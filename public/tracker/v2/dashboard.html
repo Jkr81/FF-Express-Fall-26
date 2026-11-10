@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GameTime v2 - Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.min.js"></script>
+  <script defer src="js/sketch.js"></script>
+  <script defer src="js/dashboard.js"></script>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <div class="eyebrow">YOUR PERSONAL PLAYTIME TRACKER</div>
+      <h1>🎮 GameTime <span class="version">v2</span></h1>
+      <p>Your gaming habits at a glance.</p>
+      <nav aria-label="Main navigation">
+        <a href="/tracker/v2/index.html">Timer</a>
+        <a href="/tracker/v2/dashboard.html" aria-current="page">Dashboard</a>
+      </nav>
+    </header>
+
+    <section class="stats" aria-label="Gaming summary">
+      <div class="card stat"><h3>Total Playtime</h3><p id="totalTime">0 min</p></div>
+      <div class="card stat"><h3>Sessions</h3><p id="totalSessions">0</p></div>
+      <div class="card stat"><h3>Top Genre</h3><p id="topGenre">None</p></div>
+    </section>
+
+    <section class="dashboard-grid">
+      <div class="card">
+        <h2>Gaming Time by Day</h2>
+        <p class="muted">Minutes played on each date</p>
+        <div class="chart-wrap"><canvas id="dailyChart"></canvas></div>
+        <p id="dailyEmpty" class="empty" hidden>No sessions yet. Start a timer to see your daily activity.</p>
+      </div>
+      <div class="card">
+        <h2>Gaming Time by Genre</h2>
+        <p class="muted">Where your gaming time goes</p>
+        <div class="chart-wrap"><canvas id="genreChart"></canvas></div>
+        <p id="genreEmpty" class="empty" hidden>No genre data yet.</p>
+      </div>
+      <div class="card arcade-card">
+        <div class="section-heading">
+          <div><h2>My Gaming Arcade</h2><p class="muted">One machine for each saved session</p></div>
+          <span id="arcadeCount" class="small-pill">0 machines</span>
+        </div>
+        <div id="arcadeSketch" aria-label="Arcade cabinets representing saved sessions"></div>
+      </div>
+    </section>
+
+    <div class="dashboard-actions">
+      <button id="clearBtn" type="button" class="danger">Clear All Data</button>
+      <p id="message" class="status" role="status" aria-live="polite"></p>
+    </div>
+  </main>
+</body>
+</html>

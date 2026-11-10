@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GameTime v2 - Timer</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <div class="eyebrow">YOUR PERSONAL PLAYTIME TRACKER</div>
+      <h1>🎮 GameTime <span class="version">v2</span></h1>
+      <p>Track your playtime. See your gaming habits.</p>
+      <nav aria-label="Main navigation">
+        <a href="/tracker/v2/index.html" aria-current="page">Timer</a>
+        <a href="/tracker/v2/dashboard.html">Dashboard</a>
+      </nav>
+    </header>
+
+    <section class="card timer-card">
+      <h2>New Gaming Session</h2>
+      <p class="muted">Choose your game, then start playing.</p>
+
+      <label for="game">Game Name</label>
+      <input id="game" type="text" placeholder="e.g. Minecraft" maxlength="60">
+
+      <label for="genre">Game Genre</label>
+      <select id="genre">
+        <option value="">Select a genre</option>
+        <option>Action</option><option>Adventure</option><option>RPG</option>
+        <option>Shooter</option><option>Sports</option><option>Racing</option>
+        <option>Simulation</option><option>Strategy</option>
+        <option>Sandbox</option><option>Other</option>
+      </select>
+
+      <div class="timer-label">SESSION TIMER</div>
+      <div id="timer" aria-live="off">00:00:00</div>
+      <div class="button-row">
+        <button id="startBtn" type="button">Start Session</button>
+        <button id="stopBtn" type="button" class="secondary" disabled>Stop &amp; Save</button>
+      </div>
+      <p id="message" class="status" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+  <script src="js/tracker.js"></script>
+</body>
+</html>
