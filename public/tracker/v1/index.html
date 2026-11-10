@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GameTime - Session Timer</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>🎮 GameTime</h1>
+      <p>Track your playtime, discover your habits.</p>
+      <nav>
+        <a href="index.html">Timer</a>
+        <a href="dashboard.html">Dashboard</a>
+      </nav>
+    </header>
+
+    <section class="card timer-card">
+      <h2>New Gaming Session</h2>
+
+      <label for="game">Game Name</label>
+      <input type="text" id="game" placeholder="Enter a game name" maxlength="60">
+
+      <label for="genre">Game Genre</label>
+      <select id="genre">
+        <option value="">Select a genre</option>
+        <option>Action</option>
+        <option>Adventure</option>
+        <option>RPG</option>
+        <option>Shooter</option>
+        <option>Sports</option>
+        <option>Racing</option>
+        <option>Simulation</option>
+        <option>Strategy</option>
+        <option>Sandbox</option>
+        <option>Other</option>
+      </select>
+
+      <div id="timer">00:00:00</div>
+
+      <div class="buttons">
+        <button id="startBtn">Start Session</button>
+        <button id="stopBtn" disabled>Stop &amp; Save</button>
+      </div>
+
+      <p id="message" role="status"></p>
+    </section>
+  </main>
+
+  <script src="js/tracker.js"></script>
+</body>
+</html>

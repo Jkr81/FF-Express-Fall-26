@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GameTime - Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.min.js"></script>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>🎮 GameTime</h1>
+      <p>Your gaming habits at a glance.</p>
+      <nav>
+        <a href="index.html">Timer</a>
+        <a href="dashboard.html">Dashboard</a>
+      </nav>
+    </header>
+
+    <section class="stats">
+      <div class="card">
+        <h3>Total Playtime</h3>
+        <p id="totalTime">0 min</p>
+      </div>
+      <div class="card">
+        <h3>Sessions</h3>
+        <p id="totalSessions">0</p>
+      </div>
+      <div class="card">
+        <h3>Top Genre</h3>
+        <p id="topGenre">None</p>
+      </div>
+    </section>
+
+    <section class="dashboard-grid">
+      <div class="card">
+        <h2>Gaming Time by Day</h2>
+        <div class="chart-container">
+          <canvas id="dailyChart"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Gaming Time by Genre</h2>
+        <div class="chart-container">
+          <canvas id="genreChart"></canvas>
+        </div>
+      </div>
+
+      <div class="card arcade-card">
+        <h2>My Gaming Arcade</h2>
+        <p>Each machine represents a gaming session.</p>
+        <div id="arcadeSketch"></div>
+      </div>
+    </section>
+
+    <div class="dashboard-actions">
+      <button id="clearBtn" class="danger">Clear All Data</button>
+      <p id="message" role="status"></p>
+    </div>
+  </main>
+
+  <script src="js/dashboard.js"></script>
+  <script src="js/sketch.js"></script>
+</body>
+</html>

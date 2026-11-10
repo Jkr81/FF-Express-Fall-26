@@ -9,6 +9,7 @@ app.set("view engine", "hbs");
 
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Serve files from the "public" folder (HTML, CSS, JS)
 app.use(express.static("public"));
@@ -43,7 +44,6 @@ app.post("/form", (req, res) => {
   const platform = req.body.platform;
   const genre = req.body.genre;
 
-
   let votes = {
     platform: {
       playstation: 0,
@@ -74,7 +74,6 @@ app.post("/form", (req, res) => {
     votes.genre[genre] = votes.genre[genre] + 1;
   }
 
-
   res.cookie("votes", votes, { maxAge: 7 * 24 * 60 * 60 * 1000 });
 
   res.render("response", {
@@ -92,6 +91,68 @@ app.get("/api/animals", (req, res) => {
   res.json(["narwhal", "penguin", "seal"]);
 });
 
+
+// ----- Tracker v1 routes -----
+
+// Saves a new gaming session in a cookie
+app.post("/tracker/v1/save", (req, res) => {
+  const game = req.body.game;
+  const genre = req.body.genre;
+  const date = req.body.date;
+  const minutes = Number(req.body.minutes);
+
+  if (!game || !genre || !date || !Number.isFinite(minutes) || minutes <= 0) {
+    return res.status(400).json({
+      message: "Invalid gaming session"
+    });
+  }
+
+  let sessions = req.cookies.gameTime_v1 || [];
+
+  if (!Array.isArray(sessions)) {
+    sessions = [];
+  }
+
+  sessions.push({
+    date: date,
+    game: game,
+    genre: genre,
+    minutes: minutes
+  });
+
+  sessions = sessions.slice(-30);
+
+  res.cookie("gameTime_v1", sessions, {
+    maxAge: 30 * 24 * 60 * 60 * 1000
+  });
+
+  res.json({
+    message: "Session saved successfully"
+  });
+});
+
+// Sends saved gaming sessions to the dashboard
+app.get("/tracker/v1/data", (req, res) => {
+  const sessions = req.cookies.gameTime_v1 || [];
+
+  if (Array.isArray(sessions)) {
+    res.json(sessions);
+  } else {
+    res.json([]);
+  }
+});
+
+// Clears all saved gaming sessions
+app.post("/tracker/v1/clear", (req, res) => {
+  res.clearCookie("gameTime_v1");
+
+  res.json({
+    message: "All gaming sessions cleared"
+  });
+});
+
+
+// Original dynamic route
 app.get("/:name", (req, res)=>{
     res.send("My name is: " + req.params.name);
 });

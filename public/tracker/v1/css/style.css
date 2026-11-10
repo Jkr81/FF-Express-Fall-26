@@ -1,0 +1,204 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #0c1020;
+  color: #f4f6ff;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 0;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+h1 {
+  font-size: 38px;
+  margin-bottom: 8px;
+}
+
+h2 {
+  font-size: 20px;
+  margin-top: 0;
+}
+
+h3 {
+  font-size: 15px;
+  color: #aeb9d9;
+}
+
+header p, .arcade-card p {
+  color: #aeb9d9;
+}
+
+nav {
+  margin-top: 22px;
+}
+
+nav a {
+  display: inline-block;
+  color: #ffffff;
+  background: #252e51;
+  text-decoration: none;
+  padding: 11px 20px;
+  margin: 4px;
+  border-radius: 8px;
+}
+
+nav a:hover {
+  background: #43548c;
+}
+
+.card {
+  background: #191f36;
+  border: 1px solid #303a5b;
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.timer-card {
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+label {
+  display: block;
+  margin: 20px 0 8px;
+  font-size: 14px;
+}
+
+input, select {
+  width: 100%;
+  padding: 13px;
+  border-radius: 8px;
+  border: 1px solid #465273;
+  background: #10162a;
+  color: white;
+  font-size: 16px;
+}
+
+#timer {
+  text-align: center;
+  font-size: 55px;
+  font-weight: bold;
+  margin: 40px 0;
+  color: #8aa8ff;
+  font-variant-numeric: tabular-nums;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+}
+
+button {
+  background: #586eff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 13px 20px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.buttons button {
+  flex: 1;
+}
+
+button:hover:not(:disabled) {
+  background: #7788ff;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+#message {
+  text-align: center;
+  color: #aeb9d9;
+  min-height: 20px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.stats .card {
+  text-align: center;
+}
+
+.stats .card p {
+  font-size: 27px;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.chart-container {
+  height: 300px;
+  position: relative;
+}
+
+.arcade-card {
+  grid-column: 1 / -1;
+}
+
+#arcadeSketch {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.dashboard-actions {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.danger {
+  background: #b83e60;
+}
+
+.danger:hover:not(:disabled) {
+  background: #d45175;
+}
+
+@media (max-width: 700px) {
+  .stats, .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .arcade-card {
+    grid-column: auto;
+  }
+
+  #timer {
+    font-size: 42px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+}
