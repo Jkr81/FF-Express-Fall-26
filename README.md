@@ -1,7 +1,7 @@
 
 # GameTime — AI-Scripted Cookie Tracker Dashboard
 
-🎥 **Video walkthrough (3–5 minutes):** [Add your video link here before submitting]
+🎥 **Video walkthrough (3–5 minutes):** [https://www.youtube.com/watch?v=9R_sm-qdoyY]
 
 **Course:** CIM 343/643 — Front End Fundamentals  
 **Repository:** [FF-Express-Fall-26](https://github.com/Jkr81/FF-Express-Fall-26)
@@ -214,5 +214,5 @@ This assignment showed me why testing an AI-generated app matters. In v1, saving
 - [x] Write code explanations in **my own words**
 - [x] Confirm hand-edit statement is accurate
 - [x] All four required Express routes work
-- [ ] Add the **3–5-minute narrated video link at the top**
+- [x] Add the **3–5-minute narrated video link at the top**
 - [x] Open the README on GitHub and confirm images display
