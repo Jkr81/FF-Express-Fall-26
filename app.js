@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 
 // A simple handlebars example
 app.get("/home", (req, res) => {
-  res.render("home", {title: "My Home Page"});
+  res.render("home", { title: "My Home Page" });
 });
 
 app.get("/animalloop", (req, res) => {
@@ -34,7 +34,7 @@ app.get("/animalloop", (req, res) => {
   });
 });
 
-//Processing a Form
+// Processing a Form
 
 app.get("/form", (req, res) => {
   res.render("survey", { title: "Survey" });
@@ -74,7 +74,9 @@ app.post("/form", (req, res) => {
     votes.genre[genre] = votes.genre[genre] + 1;
   }
 
-  res.cookie("votes", votes, { maxAge: 7 * 24 * 60 * 60 * 1000 });
+  res.cookie("votes", votes, {
+    maxAge: 7 * 24 * 60 * 60 * 1000
+  });
 
   res.render("response", {
     platformVotes: votes.platform,
@@ -94,6 +96,20 @@ app.get("/api/animals", (req, res) => {
 
 // ----- Tracker v1 routes -----
 
+// Opens the v1 timer
+app.get("/tracker/v1", (req, res) => {
+  res.sendFile("index.html", {
+    root: "public/tracker/v1"
+  });
+});
+
+// Opens the v1 dashboard
+app.get("/tracker/v1/dashboard", (req, res) => {
+  res.sendFile("dashboard.html", {
+    root: "public/tracker/v1"
+  });
+});
+
 // Saves a new gaming session in a cookie
 app.post("/tracker/v1/save", (req, res) => {
   const game = req.body.game;
@@ -101,7 +117,8 @@ app.post("/tracker/v1/save", (req, res) => {
   const date = req.body.date;
   const minutes = Number(req.body.minutes);
 
-  if (!game || !genre || !date || !Number.isFinite(minutes) || minutes <= 0) {
+  if (!game || !genre || !date ||
+      !Number.isFinite(minutes) || minutes <= 0) {
     return res.status(400).json({
       message: "Invalid gaming session"
     });
@@ -152,30 +169,60 @@ app.post("/tracker/v1/clear", (req, res) => {
 });
 
 
-// Original dynamic route
 // ----- Tracker v2 routes -----
+
+// Opens the v2 timer
+app.get("/tracker/v2", (req, res) => {
+  res.sendFile("index.html", {
+    root: "public/tracker/v2"
+  });
+});
+
+// Opens the v2 dashboard
+app.get("/tracker/v2/dashboard", (req, res) => {
+  res.sendFile("dashboard.html", {
+    root: "public/tracker/v2"
+  });
+});
 
 // Saves a new gaming session in the separate v2 cookie.
 app.post("/tracker/v2/save", (req, res) => {
-  const game = typeof req.body.game === "string" ? req.body.game.trim() : "";
+  const game = typeof req.body.game === "string"
+    ? req.body.game.trim()
+    : "";
+
   const genre = req.body.genre;
   const date = req.body.date;
   const minutes = Number(req.body.minutes);
+
   const allowedGenres = [
     "Action", "Adventure", "RPG", "Shooter", "Sports",
     "Racing", "Simulation", "Strategy", "Sandbox", "Other"
   ];
 
-  if (!game || game.length > 60 || !allowedGenres.includes(genre) ||
-      typeof date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(date) ||
+  if (!game || game.length > 60 ||
+      !allowedGenres.includes(genre) ||
+      typeof date !== "string" ||
+      !/^\d{4}-\d{2}-\d{2}$/.test(date) ||
       !Number.isFinite(minutes) || minutes <= 0) {
-    return res.status(400).json({ message: "Invalid gaming session" });
+    return res.status(400).json({
+      message: "Invalid gaming session"
+    });
   }
 
   let sessions = req.cookies.gameTime_v2 || [];
-  if (!Array.isArray(sessions)) sessions = [];
 
-  sessions.push({ date, game, genre, minutes });
+  if (!Array.isArray(sessions)) {
+    sessions = [];
+  }
+
+  sessions.push({
+    date,
+    game,
+    genre,
+    minutes
+  });
+
   sessions = sessions.slice(-30);
 
   res.cookie("gameTime_v2", sessions, {
@@ -183,23 +230,31 @@ app.post("/tracker/v2/save", (req, res) => {
     sameSite: "lax"
   });
 
-  res.json({ message: "Session saved successfully" });
+  res.json({
+    message: "Session saved successfully"
+  });
 });
 
 // Returns saved v2 sessions as JSON.
 app.get("/tracker/v2/data", (req, res) => {
   const sessions = req.cookies.gameTime_v2 || [];
+
   res.json(Array.isArray(sessions) ? sessions : []);
 });
 
 // Clears v2 sessions without affecting v1 or the gaming poll.
 app.post("/tracker/v2/clear", (req, res) => {
   res.clearCookie("gameTime_v2");
-  res.json({ message: "All GameTime v2 sessions cleared" });
+
+  res.json({
+    message: "All GameTime v2 sessions cleared"
+  });
 });
 
-app.get("/:name", (req, res)=>{
-    res.send("My name is: " + req.params.name);
+
+// Original dynamic route
+app.get("/:name", (req, res) => {
+  res.send("My name is: " + req.params.name);
 });
 
 app.listen(port, () => {

@@ -1,3 +1,4 @@
+
 // This sketch uses instance mode so it does not depend on global p5 functions.
 (function () {
   let sessions = [];
@@ -55,8 +56,14 @@
     // Draws one arcade cabinet with genre color and playtime label.
     function drawMachine(x, y, session) {
       const duration = Number(session.minutes) || 0;
-      const extraHeight = p.map(p.constrain(duration, 0, 180), 0, 180, 0, 30);
+
+      // Height increases with playtime, up to 5 minutes.
+      const extraHeight = p.map(
+        p.constrain(duration, 0, 5),
+        0, 5, 0, 45
+      );
       const cabinetHeight = 102 + extraHeight;
+
       const cabinetColor = colors[session.genre] || colors.Other;
 
       p.push();

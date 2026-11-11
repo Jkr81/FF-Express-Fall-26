@@ -1,0 +1,44 @@
+// ----- Tracker v2 routes -----
+
+// Saves a new gaming session in the separate v2 cookie.
+app.post("/tracker/v2/save", (req, res) => {
+  const game = typeof req.body.game === "string" ? req.body.game.trim() : "";
+  const genre = req.body.genre;
+  const date = req.body.date;
+  const minutes = Number(req.body.minutes);
+  const allowedGenres = [
+    "Action", "Adventure", "RPG", "Shooter", "Sports",
+    "Racing", "Simulation", "Strategy", "Sandbox", "Other"
+  ];
+
+  if (!game || game.length > 60 || !allowedGenres.includes(genre) ||
+      typeof date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(date) ||
+      !Number.isFinite(minutes) || minutes <= 0) {
+    return res.status(400).json({ message: "Invalid gaming session" });
+  }
+
+  let sessions = req.cookies.gameTime_v2 || [];
+  if (!Array.isArray(sessions)) sessions = [];
+
+  sessions.push({ date, game, genre, minutes });
+  sessions = sessions.slice(-30);
+
+  res.cookie("gameTime_v2", sessions, {
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    sameSite: "lax"
+  });
+
+  res.json({ message: "Session saved successfully" });
+});
+
+// Returns saved v2 sessions as JSON.
+app.get("/tracker/v2/data", (req, res) => {
+  const sessions = req.cookies.gameTime_v2 || [];
+  res.json(Array.isArray(sessions) ? sessions : []);
+});
+
+// Clears v2 sessions without affecting v1 or the gaming poll.
+app.post("/tracker/v2/clear", (req, res) => {
+  res.clearCookie("gameTime_v2");
+  res.json({ message: "All GameTime v2 sessions cleared" });
+});
